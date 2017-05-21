@@ -12,7 +12,7 @@ public class Object
     private List<OPoint> objectPoint;
     private int xDir;
     private int yDir;
-    final int SIZE = 10;
+    final int SIZE = 25;
     private boolean colourChanged;
     private Color colour;
 
