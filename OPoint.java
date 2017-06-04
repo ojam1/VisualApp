@@ -1,27 +1,27 @@
 package ojam.visualapp;
 
 /**
- * Created by Oliver on 04/05/2017.
+ * Created by ojam1 on 04/05/2017.
  */
-public class OPoint
+
+ class OPoint
 {
   private int x;
   private int y;
 
-    public OPoint(int x, int y) {
+    OPoint(int x, int y)
+    {
         this.x = x;
         this.y = y;
     }
 
-    public int getX()
+    int getX()
     {
         return x;
     }
 
-    public int getY()
+    int getY()
     {
         return y;
     }
-
-
 }

@@ -1,26 +1,28 @@
 package ojam.visualapp;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Oliver on 04/05/2017.
+ * Created by ojam1 on 04/05/2017.
  */
-public class Object
+
+class AppObject
 {
     private List<OPoint> objectPoint;
     private int xDir;
     private int yDir;
-    final int SIZE = 25;
+    private final int SIZE = 25;
     private boolean colourChanged;
     private Color colour;
 
-    public Object()
+    AppObject()
     {
       objectPoint = new ArrayList<>();
       colourChanged = false;
-      this.colour = Color.WHITE;
+      this.colour = getRandomColour();
       xDir = 1;
       yDir = 1;
       int xStart = (int) (Math.random()*600);
@@ -32,11 +34,11 @@ public class Object
       }
     }
 
-    public void draw(Graphics g)
+    void draw(Graphics g)
     {
         if(colourChanged)
         {
-            this.colour = (getRandomColour());
+            this.colour = getRandomColour();
             colourChanged = false;
         }
         else g.setColor(this.colour);
@@ -46,7 +48,7 @@ public class Object
         }
     }
 
-    public void move()
+    void move()
     {
         OPoint temp = objectPoint.get(0);
         OPoint newPoint = new OPoint(temp.getX()+(xDir*5),temp.getY()+(yDir*5));
@@ -57,38 +59,40 @@ public class Object
         objectPoint.set(0,newPoint);
     }
 
-    public void stopMove() {
+    void stopMove() {
         xDir=0;
         yDir=0;
     }
 
-    public void changeDir() {
-
+    void changeDir()
+    {
         int x = getPointX();
         int y = getPointY();
 
-        if (x < 0 || x > 590) {
+        if (x < 0 || x > 590)
+        {
             xDir=-xDir;
             colourChanged = true;
         }
 
-        else if (y < 0 || y > 590) {
+        else if (y < 0 || y > 590)
+        {
             yDir=-yDir;
             colourChanged = true;
         }
     }
 
-    public int getPointX()
+    int getPointX()
     {
         return objectPoint.get(0).getX();
     }
 
-    public int getPointY()
+    int getPointY()
     {
         return objectPoint.get(0).getY();
     }
 
-    public Color getRandomColour()
+    private Color getRandomColour()
     {
         int red = (int)(Math.random()*256);
         int blue = (int)(Math.random()*256);
@@ -96,11 +100,21 @@ public class Object
         return new Color(red,green,blue);
     }
 
-    public void setxDir(int x) {
+    void setXDir(int x)
+    {
         xDir=x;
     }
 
-    public void setyDir(int y) {
+    void setYDir(int y)
+    {
         yDir=y;
+    }
+
+    boolean isNear(MouseEvent e)
+    {
+        return (
+                ((e.getX()>=(getPointX()-10)) && (e.getX()<=(getPointX()+20))) &&
+                ((e.getY()>=(getPointY()-10)) && (e.getY()<=(getPointY()+20)))
+                );
     }
 }
